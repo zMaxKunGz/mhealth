@@ -12,12 +12,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import mhealt.kku.funlhek.R;
-import mhealt.kku.funlhek.dao.FriendlyMessage;
-import mhealt.kku.funlhek.dao.User;
+import mhealt.kku.funlhek.dao.Clinic;
 
 public class DataActivity extends AppCompatActivity {
 
@@ -58,7 +54,7 @@ public class DataActivity extends AppCompatActivity {
         // Init
 
         //Read
-        mRootRef.child("users").child("id-654321").addListenerForSingleValueEvent(new ValueEventListener() {
+       /* mRootRef.child("users").child("id-654321").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
@@ -68,6 +64,25 @@ public class DataActivity extends AppCompatActivity {
                     Toast.makeText(DataActivity.this, "User : " + user.username , Toast.LENGTH_LONG).show();
                 }
                 finish();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("TagDatabase", databaseError.getMessage());
+            }
+        });*/
+
+        mRootRef.child("clinics").child("c-001").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Clinic clinic = dataSnapshot.getValue(Clinic.class);
+                if (clinic == null) {
+                    Toast.makeText(DataActivity.this, "Error: could not fetch user.", Toast.LENGTH_LONG).show();
+                } else {
+                    String[] tells  = clinic.tell.split(", ");
+                    Toast.makeText(DataActivity.this, "User : " + tells[0], Toast.LENGTH_LONG).show();
+                }
+                // finish();
             }
 
             @Override

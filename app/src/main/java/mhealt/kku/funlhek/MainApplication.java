@@ -2,7 +2,7 @@ package mhealt.kku.funlhek;
 
 import android.app.Application;
 
-import com.inthecheesefactory.thecheeselibrary.manager.Contextor;
+import mhealt.kku.funlhek.manager.Contextor;
 
 /**
  * Created by vashi on 11-Jan-17.

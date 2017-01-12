@@ -72,7 +72,7 @@ public class DataActivity extends AppCompatActivity {
             }
         });*/
 
-        mRootRef.child("clinics").child("c-001").addListenerForSingleValueEvent(new ValueEventListener() {
+        mRootRef.child("clinics").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Clinic clinic = dataSnapshot.getValue(Clinic.class);

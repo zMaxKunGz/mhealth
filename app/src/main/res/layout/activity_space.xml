@@ -12,11 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />-->
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/imageview"
         android:scaleType="centerCrop"
         android:src="@drawable/openninggif"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" />-->
 
 </RelativeLayout>

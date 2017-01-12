@@ -13,9 +13,10 @@ public class PlaceInfoMarker {
     Marker keepMarker;
     String name;
     Double lat,lng;
-    String adress;
+    Clinic clinicInfo;
     LatLng latlng;
     String snippet;
+    String clinicID;
 
     public PlaceInfoMarker(Double lat, Double lng) {
         this.lat = lat;
@@ -45,13 +46,6 @@ public class PlaceInfoMarker {
     public LatLng getLatlng() {
         return latlng;
     }
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) {
-        this.adress = adress;
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -73,4 +67,19 @@ public class PlaceInfoMarker {
     public void setKeepMarker(Marker keepMarker) {
         this.keepMarker = keepMarker;
     }
+    public Clinic getClinicInfo() {
+        return clinicInfo;
+    }
+
+    public void setClinicInfo(Clinic clinicInfo) {
+        this.clinicInfo = clinicInfo;
+    }
+    public String getClinicID() {
+        return clinicID;
+    }
+
+    public void setClinicID(String clinicID) {
+        this.clinicID = clinicID;
+    }
+
 }

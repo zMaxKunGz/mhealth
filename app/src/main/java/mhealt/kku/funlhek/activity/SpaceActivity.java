@@ -1,56 +1,13 @@
 package mhealt.kku.funlhek.activity;
 
-import android.content.Intent;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Handler;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.content.Context;
+import android.util.AttributeSet;
 import android.widget.VideoView;
 
 import mhealt.kku.funlhek.R;
 
-public class SpaceActivity extends AppCompatActivity {
-
-   /* private VideoView videoView;
-    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-            RelativeLayout.LayoutParams.MATCH_PARENT,
-            RelativeLayout.LayoutParams.MATCH_PARENT
-    );
-*/
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_space);
-
-        Toast.makeText(SpaceActivity.this, "Alert", Toast.LENGTH_LONG).show();
-
-/*
-        try{
-            videoView = new VideoView(this);
-            setContentView(videoView);
-            Uri video = Uri.parse("android.resource://" + getPackageName() + "/"
-                    + R.raw.openningmov);
-            videoView.setVideoURI(video);
-            videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-                public void onCompletion(MediaPlayer mp) {
-                    //jump();
-                }
-
-
-
-            });
-            videoView.start();
-        } catch(Exception ex) {
-            //jump();
-        }*/
-
-        // Auto Intend
+public class SpaceActivity extends VideoView {
+    // Auto Intend
         /*Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -59,7 +16,23 @@ public class SpaceActivity extends AppCompatActivity {
                 finish();
             }
         }, 2000); // หน่วงเวลา*/
+
+
+    public SpaceActivity(Context context) {
+        super(context);
     }
 
+    public SpaceActivity(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
+    public SpaceActivity(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
+    }
 }

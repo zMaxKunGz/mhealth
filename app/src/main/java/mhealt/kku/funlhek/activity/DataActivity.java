@@ -1,7 +1,7 @@
 package mhealt.kku.funlhek.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,7 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import mhealt.kku.funlhek.R;
-import mhealt.kku.funlhek.dao.Clinic;
+import mhealt.kku.funlhek.dao.User;
 
 public class DataActivity extends AppCompatActivity {
 
@@ -54,10 +54,11 @@ public class DataActivity extends AppCompatActivity {
         // Init
 
         //Read
-       /* mRootRef.child("users").child("id-654321").addListenerForSingleValueEvent(new ValueEventListener() {
+       mRootRef.child("users").child("id-654321").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                Log.d("Check", "กวย ยยยย");
                 if (user == null) {
                     Toast.makeText(DataActivity.this, "Error: could not fetch user.", Toast.LENGTH_LONG).show();
                 } else {
@@ -70,26 +71,9 @@ public class DataActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
                 Log.e("TagDatabase", databaseError.getMessage());
             }
-        });*/
-
-        mRootRef.child("clinics").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Clinic clinic = dataSnapshot.getValue(Clinic.class);
-                if (clinic == null) {
-                    Toast.makeText(DataActivity.this, "Error: could not fetch user.", Toast.LENGTH_LONG).show();
-                } else {
-                    String[] tells  = clinic.tell.split(", ");
-                    Toast.makeText(DataActivity.this, "User : " + tells[0], Toast.LENGTH_LONG).show();
-                }
-                // finish();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("TagDatabase", databaseError.getMessage());
-            }
         });
+
+
 
        mTextView = (TextView) findViewById(R.id.mTextView);
     }

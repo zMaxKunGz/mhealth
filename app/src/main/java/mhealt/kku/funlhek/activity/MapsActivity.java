@@ -5,14 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
-<<<<<<< HEAD
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.AutoCompleteTextView;
-import android.widget.SeekBar;
-import android.widget.TextView;
-=======
 import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
@@ -23,11 +15,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
->>>>>>> master
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -36,16 +28,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
-<<<<<<< HEAD
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-=======
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
->>>>>>> master
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,21 +50,18 @@ public class MapsActivity extends AppCompatActivity implements
         SeekBar.OnSeekBarChangeListener,
         OnMapReadyCallback,
         GoogleMap.OnInfoWindowLongClickListener,
-<<<<<<< HEAD
         GoogleMap.OnInfoWindowCloseListener
 {
-    private DatabaseReference myRef;
-=======
-        GoogleMap.OnInfoWindowCloseListener {
 
->>>>>>> master
+
     private List<PlaceInfoMarker> markers;
     private GoogleMap mMap;
     private boolean mPermissionDenied = false;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private ArrayList<String> titleArray;
+    private String[] titleArray;
     private AutoCompleteTextView textView;
     private List<DoctorInfo> doctorInfo;
+    private DatabaseReference myRef;
 
     private static final LatLng DEFAULT_LATLNG = new LatLng(16.472573, 102.825716);
 
@@ -91,42 +76,12 @@ public class MapsActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         init();
+        feedData();
+        createTitleArray();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        feedData();
-<<<<<<< HEAD
-=======
-        setAutoTextComplete();
-        /*edt_search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                //mMap.clear();
-                for(PlaceInfoMarker m : markers) {
-                    if(m.getKeepMarker().getTitle().contains(edt_search.getText().toString().trim())) {
-                        m.getKeepMarker().setVisible(true);
-                        m.getKeepMarker().showInfoWindow();
-                        //Log.d("Check", m.getKeepMarker().getTitle());
-                    }
-                    else {
-                        m.getKeepMarker().setVisible(false);
-                    }
-                }
-            }
-        });*/
-
->>>>>>> master
     }
 
 
@@ -185,8 +140,8 @@ public class MapsActivity extends AppCompatActivity implements
         }
     }
 
-    private void feedData() {
-        myRef = FirebaseDatabase.getInstance().getReference();
+    public void feedData() {
+        myRef = FirebaseDatabase.getInstance().getReference().getRoot();
 //        myRef.child("orthodontists").addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
@@ -201,14 +156,14 @@ public class MapsActivity extends AppCompatActivity implements
 //            }
 //        });
         //Toast.makeText(getApplicationContext(), doctorInfo.get(0).getName(), Toast.LENGTH_SHORT).show();
-        myRef.child("clinics").addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child("clinics").child("0").child("clinic_id").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<List<DoctorInfo>> t = new GenericTypeIndicator<List<DoctorInfo>>() {};
-
-                doctorInfo = dataSnapshot.getValue(t);
-                Log.d("Check", doctorInfo.get(0).getName());
-                // finish();
+                //GenericTypeIndicator<List<DoctorInfo>> t = new GenericTypeIndicator<List<DoctorInfo>>() {};
+                String doctorInfo1 = dataSnapshot.getValue(String.class);
+                //doctorInfo = dataSnapshot.getValue(t);
+                Toast.makeText(getApplicationContext(), doctorInfo1 + "  ", Toast.LENGTH_LONG).show();
+                //finish();
             }
 
             @Override
@@ -270,32 +225,10 @@ public class MapsActivity extends AppCompatActivity implements
 
     }
 
-<<<<<<< HEAD
-
-=======
-    public void setAutoTextComplete() {
-        createTitleArray();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, titleArray);
-       /* textView = (AutoCompleteTextView) findViewById(R.id.at_text);
-        textView.setAdapter(adapter);
-        textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                for(int i = 0 ; i < markers.size();i++)
-                {
-                    if(markers.get(i).getName().equals(textView.getText().toString())) {
-                        mMap.animateCamera(CameraUpdateFactory.newLatLng(markers.get(i).getLatlng()));
-                    }
-                }
-            }
-        });*/
-    }
->>>>>>> master
-
     public void createTitleArray() {
-        titleArray = new ArrayList<String>();
+        titleArray = new String[markers.size()];
         for (int i = 0; i < markers.size(); i++) {
-            titleArray.add(i, markers.get(i).getName());
+            titleArray[i] = markers.get(i).getName();
         }
     }
 
@@ -308,7 +241,7 @@ public class MapsActivity extends AppCompatActivity implements
         searchView.setMenuItem(item);
         //searchView.setVoiceSearch(true);
         searchView.setCursorDrawable(R.drawable.custom_cursor);
-         searchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
+        searchView.setSuggestions(titleArray);
         return true;
     }
 
@@ -351,7 +284,12 @@ public class MapsActivity extends AppCompatActivity implements
             public boolean onQueryTextSubmit(String query) {
                 Log.d("search", "TextSubmit : " + query);
                 // TODO: ให้ค้นหาชื่อที่ตรงกัน และไปเกท Address
-
+                for(int i = 0 ; i < markers.size();i++)
+                {
+                    if(markers.get(i).getName().equals(query)) {
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(markers.get(i).getLatlng(), 12.0f));
+                    }
+                }
                 return false;
             }
 

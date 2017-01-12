@@ -11,6 +11,16 @@ public class DoctorInfo {
     String license;
     String name;
 
+    public DoctorInfo() {
+
+    }
+
+    public DoctorInfo(String clinic_id, String license, String name) {
+        this.clinic_id = clinic_id;
+        this.license = license;
+        this.name = name;
+    }
+
     public String getClinic_id() {
         return clinic_id;
     }

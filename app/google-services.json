@@ -15,6 +15,17 @@
       },
       "oauth_client": [
         {
+<<<<<<< Updated upstream
+=======
+          "client_id": "690550931593-7kt6v5mgbdj7m0u2pl723rngrageiccb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mhealt.kku.funlhek",
+            "certificate_hash": "DADA27C4AEC581AFED2FD2331CD021AC87CB0A3C"
+          }
+        },
+        {
+>>>>>>> Stashed changes
           "client_id": "690550931593-hbqn02mjf0654p93mbdn6fgqp3d98ao9.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +40,18 @@
           "status": 1
         },
         "appinvite_service": {
+<<<<<<< Updated upstream
           "status": 1,
           "other_platform_oauth_client": []
+=======
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "690550931593-hbqn02mjf0654p93mbdn6fgqp3d98ao9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+>>>>>>> Stashed changes
         },
         "ads_service": {
           "status": 2

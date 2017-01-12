@@ -1,18 +1,21 @@
 package mhealt.kku.funlhek.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.SeekBar;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import java.util.ArrayList;
@@ -21,6 +24,8 @@ import java.util.List;
 import mhealt.kku.funlhek.R;
 import mhealt.kku.funlhek.dao.PlaceInfoMarker;
 
+//import static mhealt.kku.funlhek.R.id.edt_search;
+
 public class MapsActivity extends FragmentActivity implements
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMarkerClickListener,
@@ -28,13 +33,17 @@ public class MapsActivity extends FragmentActivity implements
         SeekBar.OnSeekBarChangeListener,
         OnMapReadyCallback,
         GoogleMap.OnInfoWindowLongClickListener,
-        GoogleMap.OnInfoWindowCloseListener{
+        GoogleMap.OnInfoWindowCloseListener
+{
 
     private List<PlaceInfoMarker> markers;
     private GoogleMap mMap;
     private boolean mPermissionDenied = false;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private EditText edt_search;
+    private ArrayList<String> titleArray;
+    private AutoCompleteTextView textView;
+
+    private static final LatLng DEFAULT_LATLNG = new LatLng(16.472573, 102.825716);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +53,9 @@ public class MapsActivity extends FragmentActivity implements
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
         feedData();
-
-        edt_search = (EditText)findViewById(R.id.edt_search);
-        edt_search.addTextChangedListener(new TextWatcher() {
+        setAutoTextComplete();
+        /*edt_search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -65,14 +72,15 @@ public class MapsActivity extends FragmentActivity implements
                 for(PlaceInfoMarker m : markers) {
                     if(m.getKeepMarker().getTitle().contains(edt_search.getText().toString().trim())) {
                         m.getKeepMarker().setVisible(true);
-                        Log.d("Check", m.getKeepMarker().getTitle());
+                        m.getKeepMarker().showInfoWindow();
+                        //Log.d("Check", m.getKeepMarker().getTitle());
                     }
                     else {
                         m.getKeepMarker().setVisible(false);
                     }
                 }
             }
-        });
+        });*/
     }
 
 
@@ -88,12 +96,13 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
+        mMap.setOnInfoWindowClickListener(this);
+        // Add marker
         for(int i = 0 ; i < markers.size(); i++)
         {
             mMap.clear();
             markers.get(i).setKeepMarker(mMap.addMarker(markers.get(i).getMarker()));
+//            markers.get(i).getKeepMarker()
         }
 //        LatLng sydney = new LatLng(-34, 151);
 //        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -101,9 +110,7 @@ public class MapsActivity extends FragmentActivity implements
         if (getApplicationContext().getPackageManager().checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, getApplicationContext().getPackageName())
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
-            //LatLng myPosition = new LatLng(mMap.getMyLocation().getLatitude(),mMap.getMyLocation().getLongitude());
-            //mMap.moveCamera(CameraUpdateFactory.newLatLng(myPosition));
-            //mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 12.0f));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LATLNG, 12.0f));
         } else {
             // add error message
         }
@@ -137,7 +144,14 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-
+        Intent intent;
+        for(int i = 0 ; i < markers.size(); i++)
+        {
+            if(markers.get(i).getName().contains(marker.getTitle())) {
+                intent = new Intent(MapsActivity.this, InfoActivity.class);
+//                intent.putExtra(markers.get(i).getClinicInfo());
+            }
+        }
     }
 
     @Override
@@ -154,5 +168,31 @@ public class MapsActivity extends FragmentActivity implements
     public boolean onMarkerClick(Marker marker) {
         return false;
 
+    }
+
+    public void setAutoTextComplete() {
+        createTitleArray();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, titleArray);
+        textView = (AutoCompleteTextView) findViewById(R.id.at_text);
+        textView.setAdapter(adapter);
+        textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                for(int i = 0 ; i < markers.size();i++)
+                {
+                    if(markers.get(i).getName().equals(textView.getText().toString())) {
+                        mMap.animateCamera(CameraUpdateFactory.newLatLng(markers.get(i).getLatlng()));
+                    }
+                }
+            }
+        });
+    }
+
+    public void createTitleArray() {
+        titleArray = new ArrayList<String>();
+        for(int i = 0 ; i < markers.size() ; i++)
+        {
+            titleArray.add(i, markers.get(i).getName());
+        }
     }
 }

@@ -4,18 +4,253 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f3f3f4"
+    android:background="#ffffff"
     android:weightSum="1">
-    <TextView
-        android:text="ระบบแจ้งอุบัติเหตุอัตโนมัติ"
-        android:paddingTop="8dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="8dp"
-        android:paddingLeft="20dp"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:background="#686868"
-        android:textColor="#fff"
+
+    <ScrollView
+        android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <!-- Group ScrollView -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Clinic Name [id: tvClinicName]-->
+            <FrameLayout
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="right"
+                android:background="#63C6C9"
+                android:layout_marginTop="24dp"
+                android:layout_width="240dp"
+                android:padding="16dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textColor="@color/colorWhite"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text="Tawan Sunshine Day Clinic"
+                    android:textSize="24sp"
+                    android:id="@+id/tvClinicName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                </TextView>
+            </FrameLayout>
+
+            <!-- Access [tvAccessName, tvAccessTell]-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <!-- Address -->
+                <LinearLayout
+                    android:layout_marginTop="6dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+                    <!-- Address/icon -->
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_my_location"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp" />
+
+                    <!-- Address/data -->
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="16dp">
+
+                        <TextView
+                            android:id="@+id/tvAccessName"
+                            android:text="214, Lang Muang Road, Tambon Nai Muang Amphoe Muang Khon Kaen, Khon Kaen, 40000"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Contact -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+                    <!-- Contact/icon -->
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_contact_phone"
+                        android:layout_width="50dp"
+                        android:layout_height="39dp" />
+
+                    <!-- Contact/data -->
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="16dp">
+
+                        <TextView
+                            android:id="@+id/tvAccessTell"
+                            android:text="087-0799607"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <!-- รายชื่อคุณแม่หมอ -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorPrimaryDark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"
+                >
+                <!-- Point -->
+                <FrameLayout
+                    android:layout_gravity="left"
+                    android:background="@color/colorWhite"
+                    android:layout_marginTop="24dp"
+                    android:layout_width="240dp"
+                    android:padding="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="Orthodontists"
+                        android:textSize="24sp"
+                        android:id="@+id/tvName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+                    </TextView>
+                </FrameLayout>
+
+                <!-- คนที่ 1 -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+                    <!-- คนที่ 1/Photo -->
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_account_circle"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp" />
+
+                    <!-- คนที่ 1/Detail -->
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="16dp">
+
+                        <TextView
+                            android:text="Tawan Sunshine"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#ffffff"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:text="ท41654"
+                            android:textSize="16sp"
+                            android:textColor="#ffffff"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- คนที่ 2 -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="72dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+                    <!-- คนที่ 2/Photo -->
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_account_circle"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp" />
+
+                    <!-- คนที่ 2/Detail -->
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingLeft="16dp">
+
+                        <TextView
+                            android:text="Max Kung"
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:textColor="#ffffff"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:text="ท41854"
+                            android:textSize="16sp"
+                            android:textColor="#ffffff"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Full Footer -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>

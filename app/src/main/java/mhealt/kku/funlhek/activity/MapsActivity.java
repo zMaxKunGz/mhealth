@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,11 +27,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
@@ -123,9 +118,10 @@ public class MapsActivity extends AppCompatActivity implements
             }
         });
         // Add marker
-        for (int i = 0; i < markers.size(); i++) {
-            mMap.clear();
+//        Toast.makeText(getApplicationContext(), PlaceInfoMarker.count, Toast.LENGTH_SHORT).show();
+        for (int i = 0; i < PlaceInfoMarker.count; i++) {
             markers.get(i).setKeepMarker(mMap.addMarker(markers.get(i).getMarker()));
+            Log.d("Check",Integer.toString(i) + markers.get(i).getName());
 //            markers.get(i).getKeepMarker()
         }
 //        LatLng sydney = new LatLng(-34, 151);
@@ -141,7 +137,7 @@ public class MapsActivity extends AppCompatActivity implements
     }
 
     public void feedData() {
-        myRef = FirebaseDatabase.getInstance().getReference().getRoot();
+//        myRef = FirebaseDatabase.getInstance().getReference().getRoot();
 //        myRef.child("orthodontists").addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
@@ -155,27 +151,49 @@ public class MapsActivity extends AppCompatActivity implements
 //
 //            }
 //        });
-        //Toast.makeText(getApplicationContext(), doctorInfo.get(0).getName(), Toast.LENGTH_SHORT).show();
-        myRef.child("clinics").child("0").child("clinic_id").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //GenericTypeIndicator<List<DoctorInfo>> t = new GenericTypeIndicator<List<DoctorInfo>>() {};
-                String doctorInfo1 = dataSnapshot.getValue(String.class);
-                //doctorInfo = dataSnapshot.getValue(t);
-                Toast.makeText(getApplicationContext(), doctorInfo1 + "  ", Toast.LENGTH_LONG).show();
-                //finish();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("TagDatabase", databaseError.getMessage());
-            }
-        });
+//        Toast.makeText(getApplicationContext(), doctorInfo.get(0).getName(), Toast.LENGTH_SHORT).show();
+//        myRef.child("clinics").child("0").child("clinic_id").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                //GenericTypeIndicator<List<DoctorInfo>> t = new GenericTypeIndicator<List<DoctorInfo>>() {};
+//                String doctorInfo1 = dataSnapshot.getValue(String.class);
+//                //doctorInfo = dataSnapshot.getValue(t);
+//                Toast.makeText(getApplicationContext(), doctorInfo1 + "  ", Toast.LENGTH_LONG).show();
+//                //finish();
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                Log.e("TagDatabase", databaseError.getMessage());
+//            }
+//        });
         markers = new ArrayList<PlaceInfoMarker>();
         PlaceInfoMarker place1 = new PlaceInfoMarker(16.4317683, 102.8399799);
         place1.setName("บ้านฟันสวย");
-        place1.setSnippet("อิอิ");
+        place1.setSnippet("474 ถ.หน้าเมือง ต.ในเมือง อ.เมือง จ.ขอนแก่น 40000");
+        PlaceInfoMarker place2 = new PlaceInfoMarker(16.4346684, 102.8361744);
+        place2.setName("คลินิกทันตแพทย์อรรถวิทย์-อริสา");
+        place2.setSnippet("Nai Mueang, Mueang Khon Kaen District, Khon Kaen 40000");
+        PlaceInfoMarker place3 = new PlaceInfoMarker(16.4351375, 102.8358748);
+        place3.setName("In-on Dental");
+        place3.setSnippet("214, Lang Muang Road, Tambon Nai Muang Amphoe Muang Khon Kaen, Khon Kaen, 40000");
+        PlaceInfoMarker place4 = new PlaceInfoMarker(16.4307404, 102.8343564);
+        place4.setName("Song Khun Mo Dental Clinic");
+        place4.setSnippet("Song Khun Mo Dental Clinic");
+        PlaceInfoMarker place5 = new PlaceInfoMarker(16.4336108, 102.8278251);
+        place5.setName("คลีนิกทันตกรรมบิ๊กสไมล");
+        place5.setSnippet("145 31, Prachasamoson Rd, Tambon Nai Mueang, Amphoe Mueang Khon Kaen, Chang Wat Khon Kaen 40000");
+        PlaceInfoMarker place6 = new PlaceInfoMarker(16.430738, 102.8274948);
+        place6.setName("Montien Dental Clinic");
+        place6.setSnippet("48, Sri Chan Rd, Ban Pet, Mueang Khon Kaen District, Khon Kaen 40000");
+
         markers.add(0, place1);
+        markers.add(1, place2);
+        markers.add(2, place3);
+        markers.add(3, place4);
+        markers.add(4, place5);
+        markers.add(5, place6);
+
     }
 
     @Override
@@ -201,10 +219,11 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     public void onInfoWindowClick(Marker marker) {
         Intent intent;
-        for (int i = 0; i < markers.size(); i++) {
+        for (int i = 0; i < PlaceInfoMarker.count; i++) {
             if (markers.get(i).getName().contains(marker.getTitle())) {
-                intent = new Intent(MapsActivity.this, InfoActivity.class);
-//                intent.putExtra(markers.get(i).getClinicInfo());
+                intent = new Intent(MapsActivity.this, SearchActivity.class);
+                intent.putExtra("id", "c-004");
+                startActivity(intent);
             }
         }
     }
@@ -227,7 +246,7 @@ public class MapsActivity extends AppCompatActivity implements
 
     public void createTitleArray() {
         titleArray = new String[markers.size()];
-        for (int i = 0; i < markers.size(); i++) {
+        for (int i = 0; i < PlaceInfoMarker.count; i++) {
             titleArray[i] = markers.get(i).getName();
         }
     }
@@ -284,7 +303,7 @@ public class MapsActivity extends AppCompatActivity implements
             public boolean onQueryTextSubmit(String query) {
                 Log.d("search", "TextSubmit : " + query);
                 // TODO: ให้ค้นหาชื่อที่ตรงกัน และไปเกท Address
-                for(int i = 0 ; i < markers.size();i++)
+                for(int i = 0 ; i < PlaceInfoMarker.count;i++)
                 {
                     if(markers.get(i).getName().equals(query)) {
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(markers.get(i).getLatlng(), 12.0f));

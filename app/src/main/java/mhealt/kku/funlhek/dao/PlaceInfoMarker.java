@@ -17,12 +17,15 @@ public class PlaceInfoMarker {
     LatLng latlng;
     String snippet;
     String clinicID;
+    public static int count = 0;
 
     public PlaceInfoMarker(Double lat, Double lng) {
         this.lat = lat;
         this.lng = lng;
         latlng = new LatLng(lat, lng);
         marker = new MarkerOptions().position(latlng);
+        count++;
+
        // marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.logo_arrow));
     }
 
@@ -82,4 +85,11 @@ public class PlaceInfoMarker {
         this.clinicID = clinicID;
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 }

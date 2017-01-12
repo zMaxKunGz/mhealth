@@ -55,7 +55,7 @@ public class SpaceActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SpaceActivity.this, MainActivity.class));
+                startActivity(new Intent(SpaceActivity.this, MapsActivity.class));
                 finish();
             }
         }, 2000); // หน่วงเวลา*/

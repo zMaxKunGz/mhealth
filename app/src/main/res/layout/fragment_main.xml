@@ -32,7 +32,7 @@
                     android:textColor="@color/colorWhite"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:text="Tawan Sunshine Day Clinic"
+                    android:text="บ้านฟันสวย"
                     android:textSize="24sp"
                     android:id="@+id/tvClinicName"
                     android:layout_width="match_parent"
@@ -74,8 +74,8 @@
 
                         <TextView
                             android:id="@+id/tvAccessName"
-                            android:text="214, Lang Muang Road, Tambon Nai Muang Amphoe Muang Khon Kaen, Khon Kaen, 40000"
-                            android:textSize="20sp"
+                            android:text="474 ถ.หน้าเมือง ต.ในเมือง อ.เมือง จ.ขอนแก่น 40000"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorPrimary"
                             android:layout_width="match_parent"
@@ -111,7 +111,7 @@
                         <TextView
                             android:id="@+id/tvAccessTell"
                             android:text="087-0799607"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/colorPrimary"
                             android:layout_width="match_parent"
@@ -179,15 +179,16 @@
                         android:paddingLeft="16dp">
 
                         <TextView
-                            android:text="Tawan Sunshine"
+                            android:text="วิภาพรรณ ฤทธิ์ถกล"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="#ffffff"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:id="@+id/textView" />
 
                         <TextView
-                            android:text="ท41654"
+                            android:text="ท 5554"
                             android:textSize="16sp"
                             android:textColor="#ffffff"
                             android:layout_width="match_parent"
@@ -199,47 +200,47 @@
                 </LinearLayout>
 
                 <!-- คนที่ 2 -->
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="72dp"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp">
-                    <!-- คนที่ 2/Photo -->
-                    <ImageView
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_account_circle"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp" />
+                <!--<LinearLayout-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="72dp"-->
+                    <!--android:paddingLeft="16dp"-->
+                    <!--android:paddingRight="16dp">-->
+                    <!--&lt;!&ndash; คนที่ 2/Photo &ndash;&gt;-->
+                    <!--<ImageView-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:src="@drawable/ic_account_circle"-->
+                        <!--android:layout_width="48dp"-->
+                        <!--android:layout_height="48dp" /> -->
 
-                    <!-- คนที่ 2/Detail -->
-                    <LinearLayout
-                        android:gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:paddingLeft="16dp">
+                    <!--&lt;!&ndash; คนที่ 2/Detail &ndash;&gt;-->
+                    <!--<LinearLayout-->
+                        <!--android:gravity="center"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:orientation="vertical"-->
+                        <!--android:paddingLeft="16dp">-->
 
-                        <TextView
-                            android:text="Max Kung"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:textColor="#ffffff"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                        <!--<TextView-->
+                            <!--android:text="Max Kung"-->
+                            <!--android:textSize="20sp"-->
+                            <!--android:textStyle="bold"-->
+                            <!--android:textColor="#ffffff"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"/>-->
 
-                        <TextView
-                            android:text="ท41854"
-                            android:textSize="16sp"
-                            android:textColor="#ffffff"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            />
+                        <!--<TextView-->
+                            <!--android:text="ท41854"-->
+                            <!--android:textSize="16sp"-->
+                            <!--android:textColor="#ffffff"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--/>-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
                 <!-- Full Footer -->
                 <View

@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,7 +17,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -24,6 +24,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
@@ -34,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mhealt.kku.funlhek.R;
+import mhealt.kku.funlhek.dao.Clinic;
 import mhealt.kku.funlhek.dao.DoctorInfo;
 import mhealt.kku.funlhek.dao.PlaceInfoMarker;
 
@@ -54,9 +56,9 @@ public class MapsActivity extends AppCompatActivity implements
     private boolean mPermissionDenied = false;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private String[] titleArray;
-    private AutoCompleteTextView textView;
     private List<DoctorInfo> doctorInfo;
     private DatabaseReference myRef;
+    private List<Clinic> clinicInfo;
 
     private static final LatLng DEFAULT_LATLNG = new LatLng(16.472573, 102.825716);
 
@@ -130,7 +132,7 @@ public class MapsActivity extends AppCompatActivity implements
         if (getApplicationContext().getPackageManager().checkPermission(Manifest.permission.ACCESS_FINE_LOCATION, getApplicationContext().getPackageName())
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LATLNG, 12.0f));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(DEFAULT_LATLNG, 13.0f));
         } else {
             // add error message
         }
@@ -171,21 +173,27 @@ public class MapsActivity extends AppCompatActivity implements
         PlaceInfoMarker place1 = new PlaceInfoMarker(16.4317683, 102.8399799);
         place1.setName("บ้านฟันสวย");
         place1.setSnippet("474 ถ.หน้าเมือง ต.ในเมือง อ.เมือง จ.ขอนแก่น 40000");
+        place1.getMarker().icon(BitmapDescriptorFactory.fromResource(R.drawable.pin1));
         PlaceInfoMarker place2 = new PlaceInfoMarker(16.4346684, 102.8361744);
         place2.setName("คลินิกทันตแพทย์อรรถวิทย์-อริสา");
         place2.setSnippet("Nai Mueang, Mueang Khon Kaen District, Khon Kaen 40000");
+        place2.getMarker().icon(BitmapDescriptorFactory.fromResource(R.drawable.pin2));
         PlaceInfoMarker place3 = new PlaceInfoMarker(16.4351375, 102.8358748);
         place3.setName("In-on Dental");
         place3.setSnippet("214, Lang Muang Road, Tambon Nai Muang Amphoe Muang Khon Kaen, Khon Kaen, 40000");
+        place3.getMarker().icon(BitmapDescriptorFactory.fromResource(R.drawable.pin3));
         PlaceInfoMarker place4 = new PlaceInfoMarker(16.4307404, 102.8343564);
         place4.setName("Song Khun Mo Dental Clinic");
         place4.setSnippet("Song Khun Mo Dental Clinic");
+        place4.getMarker().icon(BitmapDescriptorFactory.fromResource(R.drawable.pin4));
         PlaceInfoMarker place5 = new PlaceInfoMarker(16.4336108, 102.8278251);
         place5.setName("คลีนิกทันตกรรมบิ๊กสไมล");
         place5.setSnippet("145 31, Prachasamoson Rd, Tambon Nai Mueang, Amphoe Mueang Khon Kaen, Chang Wat Khon Kaen 40000");
+        place5.getMarker().icon(BitmapDescriptorFactory.fromResource(R.drawable.pin5));
         PlaceInfoMarker place6 = new PlaceInfoMarker(16.430738, 102.8274948);
         place6.setName("Montien Dental Clinic");
         place6.setSnippet("48, Sri Chan Rd, Ban Pet, Mueang Khon Kaen District, Khon Kaen 40000");
+        place6.getMarker().icon(BitmapDescriptorFactory.fromResource(R.drawable.pin6));
 
         markers.add(0, place1);
         markers.add(1, place2);
@@ -306,7 +314,8 @@ public class MapsActivity extends AppCompatActivity implements
                 for(int i = 0 ; i < PlaceInfoMarker.count;i++)
                 {
                     if(markers.get(i).getName().equals(query)) {
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(markers.get(i).getLatlng(), 12.0f));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(markers.get(i).getLatlng(), 15.0f));
+
                     }
                 }
                 return false;
@@ -315,7 +324,6 @@ public class MapsActivity extends AppCompatActivity implements
             @Override
             public boolean onQueryTextChange(String newText) {
                 Log.d("search", "TextChange : " + newText);
-                //Do some magic
                 return false;
             }
         });
@@ -333,6 +341,15 @@ public class MapsActivity extends AppCompatActivity implements
                 //Do some magic
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for(int i = 0 ; i < PlaceInfoMarker.count;i++)
+        {
+            markers.get(i).getKeepMarker().setVisible(true);
+        }
     }
 
     @Override
